@@ -1,15 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 body {
   padding: 0;
   margin: 0;
   background-color: #202629;
-}
-body > * {
-  position: absolute;
-  top: 0;
-  left: 0;
+  font-family: "Poppins", sans-serif;
 }
 
 #loader {
+  background-color: #202629;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+#loader .content {
   position: absolute;
   background-color: #202629;
   color: white;
@@ -17,23 +26,82 @@ body > * {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 90vw;
   height: 90vh;
-  z-index: 1000;
   transition: all linear 1s;
   padding: 5vh 5vw;
-  overflow: hidden;
 }
-#loader > * {
+#loader .content > * {
   transition: all linear 1s;
 }
-#loader > img {
+#loader .content > img {
+  max-width: 90vw;
   transform: scale(4);
 }
-#loader #loaderbar {
+#loader .content #loaderbar {
   background-color: #d30712;
   width: 0;
   height: 5px;
+}
+
+#main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
+#main nav {
+  padding: 10px;
+  max-width: 100vw;
+  height: 10vh;
+}
+#main nav > div {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 100%;
+}
+#main nav .left {
+  float: left;
+}
+#main nav .right {
+  float: right;
+}
+#main nav * {
+  color: white;
+  position: relative;
+  pointer-events: fill;
+}
+#main nav p:hover::after {
+  position: absolute;
+  content: " ";
+  display: block;
+  width: 0%;
+  height: 5px;
+  background-color: white;
+  animation: navhover 1s linear forwards;
+}
+#main nav img {
+  max-height: 6vh;
+}
+#main nav .mobile {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  #main nav p, #main nav svg {
+    display: none;
+  }
+  #main nav .mobile, #main nav .mobile * {
+    display: flex;
+  }
+}
+
+@keyframes navhover {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

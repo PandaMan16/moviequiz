@@ -1,0 +1,30 @@
+{
+    "movies": {
+        "movie": [
+            {
+                "title": "John Wick: Chapter 4",
+                "picture": "./movieimg/oZqNqqBSMJ_notext.png"
+            },
+            { 
+                "title": "The Super Mario Bros. Movie",
+                "picture": "./movieimg/oaa939uxrC_notext.png"
+            },
+            { 
+                "title": "Avatar : La voie de l’eau",
+                "picture": "./movieimg/eU5PawEzDd_notext.png"
+            }, 
+            { 
+                "title":"Creed 3",
+                "picture": "./movieimg/Ak2tFM5pcJ_notext.png"
+            },
+            {
+                "title":"Scream 4",
+                "picture": "./movieimg/5oWXFwH7TB_notext.png"
+            },
+            {
+                "title":"Harry Potter à l'école des sorciers",
+                "picture":"./movieimg/SH4tzp8WMs_notext.png"
+            }
+        ]
+    }
+}
