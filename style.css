@@ -48,8 +48,11 @@ body {
   top: 0;
   left: 0;
   width: 100vw;
+  min-height: 100vh;
 }
 #main nav {
+  position: sticky;
+  z-index: 10;
   padding: 10px;
   max-width: 100vw;
   height: 10vh;
@@ -69,7 +72,7 @@ body {
 #main nav * {
   color: white;
   position: relative;
-  pointer-events: fill;
+  cursor: pointer;
 }
 #main nav p:hover::after {
   position: absolute;
@@ -93,6 +96,30 @@ body {
   #main nav .mobile, #main nav .mobile * {
     display: flex;
   }
+}
+#main .background {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#main .background > div {
+  background-image: url("./ressources/defaultbg.png");
+  background-color: orange;
+  height: 100%;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#main .background > div::after {
+  content: " ";
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 30%;
+  top: 70%;
+  background-image: linear-gradient(to bottom, rgba(32, 38, 41, 0), rgb(32, 38, 41));
 }
 
 @keyframes navhover {

@@ -4,7 +4,7 @@ body{
     padding: 0;
     margin: 0;
     background-color: #202629;
-    font-family: 'Poppins', sans-serif;  
+    font-family: 'Poppins', sans-serif;
 }
 #loader{
     background-color: #202629;
@@ -47,7 +47,10 @@ body{
     top: 0;
     left: 0;
     width: 100vw;
+    min-height: 100vh;
     nav{
+        position: sticky;
+        z-index: 10;
         padding: 10px;
         max-width: 100vw;
         height: 10vh;
@@ -66,7 +69,7 @@ body{
         *{
             color: white;
             position: relative;
-            pointer-events: fill;
+            cursor: pointer;
         }
         p:hover::after{
             position: absolute;
@@ -92,6 +95,32 @@ body{
             }
         }
     }
+    .background{
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        & > div{
+            background-image: url("./ressources/defaultbg.png");
+            background-color: orange;
+            height: 100%;
+            background-position: top center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        & > div::after{
+            content: ' ';
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 30%;
+            top: 70%;
+            background-image: linear-gradient(to bottom, rgba(32, 38, 41, 0), rgb(32 38 41));
+            // background-color: red;//#202629;
+        }
+    }
+    
 }
 
 @keyframes navhover {
