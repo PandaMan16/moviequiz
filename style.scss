@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap');
 
 body{
     padding: 0;
     margin: 0;
     background-color: #202629;
     font-family: 'Poppins', sans-serif;
+    font-weight: 500;
 }
 #loader{
     background-color: #202629;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -46,7 +47,7 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     min-height: 100vh;
     nav{
         position: sticky;
@@ -95,34 +96,149 @@ body{
             }
         }
     }
-    .background{
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-        & > div{
-            background-image: url("./ressources/defaultbg.png");
-            background-color: orange;
-            height: 100%;
-            background-position: top center;
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
-        & > div::after{
-            content: ' ';
-            position: relative;
-            display: block;
+    .acceuil {
+        width: 100%;
+        height: 100%;
+        .background{
             width: 100%;
-            height: 30%;
-            top: 70%;
-            background-image: linear-gradient(to bottom, rgba(32, 38, 41, 0), rgb(32 38 41));
-            // background-color: red;//#202629;
+            height: 100vh;
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            & > div{
+                background-image: url("./ressources/defaultbg.png");
+                background-color: orange;
+                height: 100%;
+                background-position: top center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+            & > div::after{
+                content: ' ';
+                position: relative;
+                display: block;
+                width: 100%;
+                height: 30%;
+                top: 70%;
+                background-image: linear-gradient(to bottom, rgba(32, 38, 41, 0), rgb(32 38 41));
+                // background-color: red;//#202629;
+            }
+        }
+        .head{
+            position: absolute;
+            // outline: red solid 2px;
+            padding: 20px;
+            width: fit-content;
+            color: white;
+            max-width: 350px;
+            top: 25%;
+            left: 1%;
+            h1{
+                font-size: 3rem;
+                line-height: 3rem;
+                font-weight: 900;
+            }
+            & > div{
+                display: flex;
+                gap: 5px;
+            }
+        }
+        .content{
+            position: absolute;
+            top: 70vh;
+            width: 100%;
         }
     }
     
 }
+.btn_bande:hover,.btn_info:hover{
+    background-color: transparent;
+    outline: 1px white solid;
+    color: #000000;
+    filter: invert(1);
+}
+.btn_info{
+    padding: 5px;
+    left: 374px;
+    top: 0px;
+    color: white;
+    background: rgba(109, 109, 110, 0.7);
+    border-radius: 4px;
+}
+.btn_bande{
+    padding: 5px;
+    background: #FFFFFF;
+    color: black;
+    border-radius: 4px;
+}
 
+
+.swiper {
+    width: 100%;
+    // height: 350px;
+    color: white;
+    // background-color: red;
+}
+.swiper-wrapper{
+    // width: 90vw;
+}
+.swiper-button-disabled{
+    display: none;
+}
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+    width: 200px;
+}
+
+/* the new container */
+.swiper-container {
+    position: relative;
+    width: 100%;
+    padding: 0 40px;
+}
+#FilmsN, #SeriesN, #FilmsT, #SeriesT{
+    position: relative;
+    // width: 100%;
+    padding: 0 40px;
+}
+/* fix the buttons positions */
+.swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translatey(-50%);
+    z-index: 10;
+    cursor: pointer;
+}
+
+.swiper-button-next {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translatey(-50%);
+    z-index: 10;
+    cursor: pointer;
+}
+.my-cool-arrow-prev {
+    
+}
+
+.my-cool-arrow-next {
+    
+}
+
+#SeriesN .swiper-slide,#FilmsN .swiper-slide{
+    filter: grayscale(1)!important;
+}
 @keyframes navhover {
     0%{
         width: 0;
