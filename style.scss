@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;900&display=swap');
-
+:root{
+    --swiper-theme-color: white;
+}
 body{
     padding: 0;
     margin: 0;
@@ -107,12 +109,12 @@ body{
             top: 0;
             left: 0;
             & > div{
-                background-image: url("./ressources/defaultbg.png");
                 background-color: orange;
                 height: 100%;
-                background-position: top center;
+                background-position: center center;
                 background-size: cover;
                 background-repeat: no-repeat;
+                transition: all 1s linear;
             }
             & > div::after{
                 content: ' ';
@@ -148,10 +150,80 @@ body{
             position: absolute;
             top: 70vh;
             width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            
         }
     }
     
 }
+
+#saisieUser{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 1em;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 5px;
+    margin-top: 30vh;
+    & > h2{
+        display: inline;
+    }
+    .input-data{
+        height: 60px;
+        width: 60%;
+        position: relative;
+    }
+    .input-data input{
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid silver;
+        color: white;
+        background-color: rgba($color: #000000, $alpha: 0.1);
+    }
+    .input-data .underline{
+        position: absolute;
+        height: 2px;
+        width: 100%;
+    }
+    .input-data .underline:before{
+        position: absolute;
+        content: "";
+        height: 100%;
+        width: 100%;
+        background: white;
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.3s ease;
+    }
+    .input-data input:focus ~ .underline:before,
+    .input-data input:valid ~ .underline:before{
+        transform: scaleX(1);
+    }
+    .input-data input:focus, .input-data input:valid{
+        font-size: 2rem;
+        outline: none!important;
+    }
+    button{
+        background-color: white;
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 1rem;
+    }
+}
+
 .btn_bande:hover,.btn_info:hover{
     background-color: transparent;
     outline: 1px white solid;
@@ -173,71 +245,45 @@ body{
     border-radius: 4px;
 }
 
-
-.swiper {
-    width: 100%;
-    // height: 350px;
+.swiper-global-container {
+    flex: 1;
+    position: relative;
+    max-width: 90vw;
+    margin: 0 auto;
     color: white;
-    // background-color: red;
 }
-.swiper-wrapper{
-    // width: 90vw;
-}
-.swiper-button-disabled{
-    display: none;
-}
+
 .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    max-height: 50vh;
+    // height: 350px;
+    // width: 200px;
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     height: 300px;
     width: 200px;
 }
 
-/* the new container */
-.swiper-container {
-    position: relative;
-    width: 100%;
-    padding: 0 40px;
+.swiper {
+    // max-width: 1200px;
+    max-width: 90vw;
+    margin: 0 auto;
 }
-#FilmsN, #SeriesN, #FilmsT, #SeriesT{
-    position: relative;
-    // width: 100%;
-    padding: 0 40px;
-}
-/* fix the buttons positions */
+
 .swiper-button-prev {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translatey(-50%);
-    z-index: 10;
-    cursor: pointer;
+    left: -50px !important;
 }
 
 .swiper-button-next {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translatey(-50%);
-    z-index: 10;
-    cursor: pointer;
-}
-.my-cool-arrow-prev {
-    
-}
-
-.my-cool-arrow-next {
-    
+    right: -50px !important;
 }
 
 #SeriesN .swiper-slide,#FilmsN .swiper-slide{
     filter: grayscale(1)!important;
+}
+
+.swiper-button-disabled{
+    display: none;
 }
 @keyframes navhover {
     0%{

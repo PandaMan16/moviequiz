@@ -1,30 +1,145 @@
 {
-    "movies": {
-        "movie": [
-            {
-                "title": "John Wick: Chapter 4",
-                "picture": "./movieimg/oZqNqqBSMJ_notext.png"
-            },
-            { 
-                "title": "The Super Mario Bros. Movie",
-                "picture": "./movieimg/oaa939uxrC_notext.png"
-            },
-            { 
-                "title": "Avatar : La voie de l’eau",
-                "picture": "./movieimg/eU5PawEzDd_notext.png"
-            }, 
-            { 
-                "title":"Creed 3",
-                "picture": "./movieimg/Ak2tFM5pcJ_notext.png"
-            },
-            {
-                "title":"Scream 4",
-                "picture": "./movieimg/5oWXFwH7TB_notext.png"
-            },
-            {
-                "title":"Harry Potter à l'école des sorciers",
-                "picture":"./movieimg/SH4tzp8WMs_notext.png"
-            }
-        ]
+    "medias": {
+      "movie": [
+        {
+          "title": "Alien",
+          "picture": "./images/l8CES84JndFlNfBNMxdLRYaLvI6.jpg"
+        },
+        {
+          "title": "Apocalypse Now",
+          "picture": "./images/scaiAT7I2KZ2GAeMvoU6Ro1515J.jpg"
+        },
+        {
+          "title": "Le Voyage de Chihiro",
+          "picture": "./images/12TAqK0AUgdcYE9ZYZ9r7ASbH5Q.jpg"
+        },
+        {
+          "title": "Fight Club",
+          "picture": "./images/t1i10ptOivG4hV7erkX3tmKpiqm.jpg"
+        },
+        {
+          "title": "Interstellar",
+          "picture": "./images/1pnigkWWy8W032o9TKDneBa3eVK.jpg"
+        },
+        {
+          "title": "Kill Bill",
+          "picture": "./images/hM2fUVWViGIJT0Twz2BTXOBEYLM.jpg"
+        },
+        {
+          "title": "Leon",
+          "picture": "./images/cm7L9NYb8SlnKDN6KXW5SRJNEH1.jpg"
+        },
+        {
+          "title": "Matrix",
+          "picture": "./images/wwGvUPEM6MRiXv3gRNaVUlUCHiT.jpg"
+        },
+        {
+          "title": "Princesse Mononoke",
+          "picture": "./images/AulQiyP2PMQKW5Vm7PviGrFbpPm.jpg"
+        },
+        {
+          "title": "Le Parrain",
+          "picture": "./images/wnDNKCeBQzioXYQrXcSyrmRHVxf.jpg"
+        },
+        {
+          "title": "Pulpe Fiction",
+          "picture": "./images/uCsJrzjQ47krDxUibUJITKZlvHN.jpg"
+        },
+        {
+          "title": "Retour vers le Futur",
+          "picture": "./images/y9bs2N5rEM51YBXbU7N5PaXJc6W.jpg"
+        },
+        {
+          "title": "Le Seigneur des Anneaux",
+          "picture": "./images/ypUCFOvOf07bcHy81jng9LyMUfi.jpg"
+        },
+        {
+          "title": "The Shining",
+          "picture": "./images/cfF0o7sVAfKE081zj0YZtwUzTg0.jpg"
+        },
+        {
+          "title": "Terminator",
+          "picture": "./images/wt2CmiaMFQ4o8FfzERzecJN286U.jpg"
+        },
+        {
+          "title": "The Truman Show",
+          "picture": "./images/7p5MzMb4h0Y2WUn73r4MHKNeh3X.jpg"
+        },
+        {
+          "title": "John Wick",
+          "picture": "./images/jAMVKvqxdNbUY2YQWhCclYI6coP.jpg"
+        }
+      ],
+      "serie": [
+        {
+          "title": "Better Call Saul",
+          "picture": "./images/7KyuCBjxsr4sNQga16DcN9ccEyf.jpg"
+        },
+        {
+          "title": "Chernobyl",
+          "picture": "./images/z7vcXBWfA3POvroAFRaTvZgX0HY.jpg"
+        },
+        {
+          "title": "Dark",
+          "picture": "./images/vbG0zu0lIVDZZaUVOZuBIE9kno3.jpg"
+        },
+        {
+          "title": "Game of Thrones",
+          "picture": "./images/3YSdxdhhdCDlMs88RhvjhDLX4CA.jpg"
+        },
+        {
+          "title": "Halo",
+          "picture": "./images/yEi8w2euQXREcxaDXaxhp5kGafL.jpg"
+        },
+        {
+          "title": "Dr House",
+          "picture": "./images/2Bw00vWztWFeTFpWTuPbUMkyDCA.jpg"
+        },
+        {
+          "title": "Malcolm",
+          "picture": "./images/wN95OS6WD9T4BqA9TNCRATHcmJK.jpg"
+        },
+        {
+          "title": "Naruto",
+          "picture": "./images/xppeysfvDKVx775MFuH8Z9BlpMk.jpg"
+        },
+        {
+          "title": "The Office",
+          "picture": "./images/2dApsoX4bd98szjrbj5i3syYOh2.jpg"
+        },
+        {
+          "title": "Rick et Morty",
+          "picture": "./images/s11re4xQLZ6pRPv2sqXnK8CCvGn.jpg"
+        },
+        {
+          "title": "South Park",
+          "picture": "./images/iiCY2QIGSnmtVkIdjkKAfwDs0KF.jpg"
+        },
+        {
+          "title": "Stargate",
+          "picture": "./images/81z6ZRDxRiXZd4mioDuzLEU8USH.jpg"
+        },
+        {
+          "title": "Stranger Things",
+          "picture": "./images/49WJfeN0moxb9IPfGn8AIqMGskD.jpg"
+        },
+        {
+          "title": "Supernatural",
+          "picture": "./images/tkaGDRpGPVikYFdokFOIA6DWDbz.jpg"
+        },
+        {
+          "title": "The Boys",
+          "picture": "./images/4Tw8TB9ikrcgzJgR0LOvgfnXD74.jpg"
+        },
+        {
+          "title": "X-Files",
+          "picture": "./images/eP4OS57gbqiOIvVAnCs8T4rz5t4.jpg"
+        },
+        {
+          "title":"Sword Art Online",
+          "picture": "./images/tTa8bB5n8Yhjr9mE44djVKnI8xR.jpg"
+        }
+      ]
     }
-}
+  }
+  

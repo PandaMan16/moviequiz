@@ -13,7 +13,7 @@
     <div id="loader">
         <div class="content"></div>
     </div>
-    <div id="main">
+    <div id="main" style="display: none;">
         <nav>
             <div class="left">
                 <img src="./ressources/logo_moviequiz.png" alt="logo moviequiz">
@@ -35,8 +35,8 @@
             </div>
         </nav>
         <section class="acceuil">
-            <div class="background"><div></div></div>
-            <div class="head">
+            <div class="background"><div style="background-image: url('./ressources/defaultbg.png');filter: grayscale(1)!important;"></div></div>
+            <div class="head" style="display: none;">
                 <h1>John Wick : Chapitre 4</h1>
                 <div>
                     <a class="btn_bande"><i class="fa-solid fa-play"></i> Voir la bande annonce</a>
@@ -44,77 +44,53 @@
                 </div>
             </div>
             <div class="content">
+                <div id="saisieUser" style="display:none">
+                    <h2>votre proposition : </h2>
+                    <div class="input-data">
+                        <input id="saisie" type="text" required>
+                        <div class="underline"></div>
+                    </div>
+                    <button id="sendSaisie">Verifié</button>
+                </div>
                 <div id="FilmsN">
-                    <div class="swiper">
+                    <div class="swiper-global-container">
                         <h3>Les Films - A trouver</h3>
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                 <div id="SeriesN">
-                    <div class="swiper">
+                    <div class="swiper-global-container">
                         <h3>Les Series - A trouver</h3>
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                 <div id="FilmsT">
-                    <div class="swiper">
+                    <div class="swiper-global-container">
                         <h3>Les Films - Trouver</h3>
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>
                     </div>
                 </div>
                 <div id="SeriesT">
-                    <div class="swiper">
+                    <div class="swiper-global-container">
                         <h3>Les Series - Trouver</h3>
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
-                            <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB.png');"></div>
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                            </div>
                         </div>
                         <div class="swiper-button-next"></div>
                         <div class="swiper-button-prev"></div>

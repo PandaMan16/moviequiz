@@ -1,100 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Exemple de carrousel avec des cartes gérées par Swiper</title>
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <meta charset="UTF-8">
+  <title>Swiper.js Example</title>
   <style>
-    html,
     body {
-      position: relative;
-      height: 100%;
-    }
-    body {
-      background: #eee;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color: #000;
       margin: 0;
       padding: 0;
-    }
-
-    .swiper {
-      width: calc(100vw - 30px);
-      height: 350px;
-      padding: 10px;
-      background-color: red;
-    }
-    .swiper-wrapper {
-      /* gap:20px; */
-    }
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      filter: grayscale(1)!important;
-      background-position: center;
-      background-size: cover;
-      /* height: 300px; */
+      flex-wrap: wrap;
+      min-width: 100%;
     }
-
-    @media (max-width: 760px) {
-      .swiper-button-next {
-        right: 20px;
-        transform: rotate(90deg);
-      }
-
-      .swiper-button-prev {
-        left: 20px;
-        transform: rotate(90deg);
-      }
+    img {
+      width: 200px;
     }
+    
   </style>
 </head>
 <body>
-   <!-- Swiper -->
-   <div class="swiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-      <div class="swiper-slide" style="background-image: url('./movieimg/5oWXFwH7TB_notext.png');"></div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div>
+  
+  <img src="./images/CnXTNWYONu.png">
+  <img src="./images/12TAqK0AUgdcYE9ZYZ9r7ASbH5Q.jpg" alt="">
+  <img src="./images/1pnigkWWy8W032o9TKDneBa3eVK.jpg" alt="">
+  <img src="./images/scaiAT7I2KZ2GAeMvoU6Ro1515J.jpg" alt="">
+  <img src="./images/2Bw00vWztWFeTFpWTuPbUMkyDCA.jpg" alt="">
+  <img src="./images/3YSdxdhhdCDlMs88RhvjhDLX4CA.jpg" alt="">
+  <script src="./node_modules/tesseract.js/dist/tesseract.min.js"></script>
 
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script>
-    var swiper = new Swiper('.swiper', {
-      slidesPerView: 7,
-      spaceBetween: 20,
-      direction: getDirection(),
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      on: {
-        resize: function () {
-          swiper.changeDirection(getDirection());
-        },
-      },
-    });
+  <script type="module">
+    // import * as Tesseract from 'tesseract.js'; ocr = reconaissance de caractere
 
-    function getDirection() {
-      var windowWidth = window.innerWidth;
-      var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
 
-      return direction;
-    }
+    document.querySelectorAll('img').forEach(image => {
+      Tesseract.recognize(image)
+      .then(result => {
+        
+        // Récupérer les régions de texte détectées
+        const textRegions = result.data.words;
+        // console.log(textRegions);
+        // Créer un canvas temporaire pour le flou
+        const tempCanvas = document.createElement('canvas');
+        const tempContext = tempCanvas.getContext('2d');
+        tempCanvas.width = image.width;
+        tempCanvas.height = image.height;
+        tempContext.drawImage(image, 0, 0, tempCanvas.width, tempCanvas.height);
+        const pattern = /^[a-zA-Z]+$/;
+
+        // Appliquer le flou aux régions de texte détectées
+        textRegions.forEach(region => {
+          
+          if(pattern.test(region.text) && region.confidence > 50){
+            console.log("region",region);
+            let { x0, y0, x1, y1 } = region.bbox;
+            x0 = x0-25;
+            y0 = y0-25;
+            x1 = x1-20;
+            y1 = y1-20;
+            tempContext.filter = 'blur(10px)';
+
+            
+            tempContext.fillStyle = "red";
+            tempContext.fillRect(x0, y0, x1-x0, y1-y0);
+          }
+        });
+
+        // Afficher l'image floutée
+        const finalCanvas = document.createElement('canvas');
+        const finalContext = finalCanvas.getContext('2d');
+        finalCanvas.width = image.width;
+        finalCanvas.height = image.height;
+        finalContext.drawImage(tempCanvas, 0, 0, finalCanvas.width, finalCanvas.height);
+        document.body.appendChild(finalCanvas);
+      })
+      .catch(error => {
+        console.error('Erreur lors de la détection du texte :', error);
+      });
+    });;
+    
   </script>
 </body>
 </html>
