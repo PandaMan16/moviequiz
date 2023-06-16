@@ -146,6 +146,28 @@ body{
                 gap: 5px;
             }
         }
+        #resultSaisie{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                color: white;
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 900;
+                font-size: 2rem;
+                line-height: 2rem;
+                background: #B6060E;
+                padding: 2rem 1.5rem;
+                width: 25rem;
+                text-align: center;
+            }
+        }
         .content{
             position: absolute;
             top: 70vh;
