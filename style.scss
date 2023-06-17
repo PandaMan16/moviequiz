@@ -193,7 +193,7 @@ body{
     align-items: center;
     justify-content: space-around;
     gap: 5px;
-    margin-top: 30vh;
+    margin-top: 15vh;
     & > h2{
         display: inline;
     }
@@ -285,7 +285,9 @@ body{
     height: 300px;
     width: 200px;
 }
-
+.swiper-slide:hover{
+    transform: scale(0.85);
+}
 .swiper {
     // max-width: 1200px;
     max-width: 90vw;
