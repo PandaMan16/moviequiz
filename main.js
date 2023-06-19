@@ -86,7 +86,7 @@ const game = {
       if(info.backdrop_path){
         let data = {"type":"tv","id":info.id,"name":info.name.split(" : ")[0],"poster_path":info.poster_path,"backdrop_path":info.backdrop_path};
         this.game.list.series.push(data);
-        if(this.game.found.serie.findIndex((serie) => serie.id == info.id) == -1){
+        if(this.game.found.serie.findIndex((serie) => serie == info.id) == -1){
           let image = this.baseimg+info.backdrop_path;
           const coverelem = panda.util.newelem("div",{"className":"swiper-slide","style":"background-image: url('"+image.replace(".jpg",".jpg")+"');"});
           coverelem.id = data.type+data.id;
@@ -175,6 +175,10 @@ const game = {
             document.querySelector("#FilmsT .swiper-wrapper").appendChild(newfoundM);
             document.querySelector("#"+this.selected.type+this.selected.id).style.display = "none";
             document.querySelector("#FilmEmpty").style.display = "none";
+            const select = this.selected;
+            newfoundM.addEventListener("click",function(e){
+              game.cover(select);
+            });
             break;
           case "tv":
             this.game.found.serie.push(this.selected.id);
@@ -182,6 +186,10 @@ const game = {
             document.querySelector("#SeriesT .swiper-wrapper").appendChild(newfoundS);
             document.querySelector("#"+this.selected.type+this.selected.id).style.display = "none";
             document.querySelector("#SerieEmpty").style.display = "none";
+            const selecte = this.selected;
+            newfoundS.addEventListener("click",function(e){
+              game.cover(selecte);
+            });
             break;
           default:
             return;
@@ -239,15 +247,21 @@ const game = {
     return percent;
   },
   cover(data){
+    if(this.interval){
+      clearInterval(this.interval);
+    }
+    document.querySelector("#saisieUser").style.display = "none";
     if(data.type == "movie"){
       document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+data.backdrop_path})`;
       document.querySelector(".background > div").style.filter = "grayscale(0)";
       let head = document.querySelector(".acceuil >.head");
+      head.style.display = "";
       head.querySelector("h1").innerHTML = data.title;
     }else if(data.type == "tv"){
       document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+data.poster_path})`;
       document.querySelector(".background > div").style.filter = "grayscale(0)";
       let head = document.querySelector(".acceuil >.head");
+      head.style.display = "";
       head.querySelector("h1").innerHTML = data.name;
     }
     this.top();
@@ -264,7 +278,8 @@ await game.init();
 panda.timeaction.add(loader,{"list":[{"action":"style","value":"opacity:&1","init":1,"add":-1}],"start":1,"end":2});
 panda.timeaction.add(loader,{"list":[{"action":"style","value":"display:none","init":0,"add":0}],"start":2,"end":3});
 panda.timeaction.add(document.querySelector("#main"),{"list":[{"action":"style","value":"display:","init":0,"add":0}],"start":2,"end":3});
-
+// panda.timeaction.add(document.querySelector("#main .acceuil .content"),{"list":[{"action":"style","value":"display:none","init":0,"add":0}],"start":3,"end":4});
+// panda.timeaction.add(document.querySelector("#main .acceuil .detail"),{"list":[{"action":"style","value":"","init":0,"add":0}],"start":4,"end":5});
 const swiperContainers = document.querySelectorAll('.swiper-global-container');
 const swipers = document.querySelectorAll('.swiper-global-container .swiper');
 
