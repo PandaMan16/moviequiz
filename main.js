@@ -26,6 +26,9 @@ const game = {
       document.querySelector("#saisie").value = "";
       game.saisie(saisie);
     });
+    document.querySelector(".btn_info").addEventListener("click",function(e){
+      game.info();
+    });
     const save = panda.cookie.read("moviequiz");
     const FilmN = document.querySelector("#FilmsN .swiper-wrapper");
     const SeriesN = document.querySelector("#SeriesN .swiper-wrapper");
@@ -55,7 +58,7 @@ const game = {
       const info = await this.getinfo(jsonfile.medias.movie[key].title,"movie");
       
       if(info.backdrop_path){
-        let data = {"type":"movie","id":info.id,"title":info.title.split(" : ")[0],"poster_path":info.poster_path,"backdrop_path":info.backdrop_path};
+        let data = {"type":"movie","id":info.id,"title":info.title.split(" : ")[0],"poster_path":info.poster_path,"backdrop_path":info.backdrop_path,"overview":info.overview};
         this.game.list.movies.push(data);
         if(this.game.found.movie.findIndex((movie) => movie == info.id) == -1){
           let image = this.baseimg+info.backdrop_path;
@@ -84,7 +87,7 @@ const game = {
     for (const key in jsonfile.medias.serie) {
       const info = await this.getinfo(jsonfile.medias.serie[key].title,"tv");
       if(info.backdrop_path){
-        let data = {"type":"tv","id":info.id,"name":info.name.split(" : ")[0],"poster_path":info.poster_path,"backdrop_path":info.backdrop_path};
+        let data = {"type":"tv","id":info.id,"name":info.name.split(" : ")[0],"poster_path":info.poster_path,"backdrop_path":info.backdrop_path,"overview":info.overview};
         this.game.list.series.push(data);
         if(this.game.found.serie.findIndex((serie) => serie == info.id) == -1){
           let image = this.baseimg+info.backdrop_path;
@@ -144,6 +147,14 @@ const game = {
       });
       return result;
   },
+  credit:async function(id,type){
+    let result = await fetch(`https://api.themoviedb.org/3/${type}/${id}/credits?api_key=${this.apikey}&language=fr`)
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+    return result;
+  },
   select:function(info){
     if(this.interval){
       clearInterval(this.interval);
@@ -196,8 +207,10 @@ const game = {
         }
         document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+this.selected.backdrop_path})`;
         document.querySelector(".background > div").style.filter = "grayscale(0)";
+        const selecte = this.selected;
         this.interval = setInterval(() => {
           document.querySelector("#saisieUser").style.display = "none";
+          game.cover(selecte);
         },5000);
         panda.cookie.save(game.game.found,"moviequiz");
       }else{
@@ -210,7 +223,7 @@ const game = {
   clear:function(){
 
   },
-  matchPourcentage(saisie,origine){
+  matchPourcentage:function(saisie,origine){
     saisie = panda.util.normalize(saisie);
     origine = panda.util.normalize(origine);
     if(saisie == origine || saisie.match(origine)){
@@ -246,7 +259,7 @@ const game = {
     }
     return percent;
   },
-  cover(data){
+  cover:function(data){
     if(this.interval){
       clearInterval(this.interval);
     }
@@ -258,15 +271,37 @@ const game = {
       head.style.display = "";
       head.querySelector("h1").innerHTML = data.title;
     }else if(data.type == "tv"){
-      document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+data.poster_path})`;
+      document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+data.backdrop_path})`;
       document.querySelector(".background > div").style.filter = "grayscale(0)";
       let head = document.querySelector(".acceuil >.head");
       head.style.display = "";
       head.querySelector("h1").innerHTML = data.name;
     }
+    this.coverelem = data;
     this.top();
   },
-  top(){
+  info:async function(){
+    if(this.coverelem){
+      let data = await this.credit(this.coverelem.id,this.coverelem.type);
+      let detail = document.querySelector(".acceuil .detail");
+      detail.querySelector(".sinopsis > p").innerHTML = this.coverelem.overview;
+      detail.querySelector(".swiper-wrapper").innerHTML = "";
+      for (const key in data.cast) {
+        if(data.cast[key].profile_path != null){
+          let elem = panda.util.newelem("div",{"className":"swiper-slide"});
+          elem.appendChild(panda.util.newelem("div",{"style":"background-image: url('"+this.baseimg+data.cast[key].profile_path+"')"}));
+          let elemtext = panda.util.newelem("div",{});
+          elemtext.appendChild(panda.util.newelem("p",{"className":"name","innerHTML":data.cast[key].name}));
+          elemtext.appendChild(panda.util.newelem("p",{"className":"role","innerHTML":data.cast[key].character}));
+          elem.appendChild(elemtext);
+          detail.querySelector(".swiper-wrapper").appendChild(elem);
+        }
+      }
+      detail.style.display = "";
+      document.querySelector(".acceuil .content").style.display = "none";
+    }
+  },
+  top:function(){
     window.scrollTo({
       top: 0,
       behavior: 'smooth' // pour un défilement fluide, vous pouvez également utiliser 'auto' pour un défilement instantané

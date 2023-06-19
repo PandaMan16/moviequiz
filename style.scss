@@ -281,7 +281,7 @@ body{
         margin: 0 auto;
 
         .swiper-slide {
-            max-height: 50vh;
+            // max-height: 50vh;
             // height: 350px;
             // width: 200px;
             background-position: center;
@@ -315,10 +315,11 @@ body{
         height: 400px!important;
         & > div{
             height: 300px;
-            .un{
+            background-size: cover;
+            .name{
                 font-weight: 900;
             }
-            .deux{
+            .role{
                 font-weight: 400;
             }
         }

@@ -283,7 +283,6 @@ body {
   margin: 0 auto;
 }
 .swiper-global-container .swiper .swiper-slide {
-  max-height: 50vh;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -311,11 +310,12 @@ body {
 }
 .detail .swiper-slide > div {
   height: 300px;
+  background-size: cover;
 }
-.detail .swiper-slide > div .un {
+.detail .swiper-slide > div .name {
   font-weight: 900;
 }
-.detail .swiper-slide > div .deux {
+.detail .swiper-slide > div .role {
   font-weight: 400;
 }
 .detail .swiper-slide:hover {
