@@ -19,6 +19,7 @@ const game = {
   apikey:"8738dbf792cba5abde36103dd3bc050e",
   game:null,
   selected:null,
+  coverelem:null,
   init:async function(){
     document.querySelector("#sendSaisie").addEventListener("click",function(e){
       let saisie = document.querySelector("#saisie").value;
@@ -63,7 +64,6 @@ const game = {
           FilmN.appendChild(coverelem);
           coverelem.addEventListener("click",function(e){
             game.select(data);
-            // panda.util.log(jsonfile.medias.movie[key].title);
           });
         }else{
           document.querySelector("#FilmEmpty").style.display = "none";
@@ -71,6 +71,9 @@ const game = {
           const coverelem = panda.util.newelem("div",{"className":"swiper-slide","style":"background-image: url('"+image.replace(".jpg",".jpg")+"');"});
           coverelem.id = data.type+data.id;
           FilmT.appendChild(coverelem);
+          coverelem.addEventListener("click",function(e){
+            game.cover(data);
+          });
         }
       }else{
         if(!info.backdrop_path){
@@ -90,7 +93,6 @@ const game = {
           SeriesN.appendChild(coverelem);
           coverelem.addEventListener("click",function(e){
             game.select(data);
-            // panda.util.log(jsonfile.medias.movie[key].title);
           });
         }else{
           document.querySelector("#SerieEmpty").style.display = "none";
@@ -98,7 +100,10 @@ const game = {
           const coverelem = panda.util.newelem("div",{"className":"swiper-slide","style":"background-image: url('"+image.replace(".jpg",".jpg")+"');"});
           coverelem.id = data.type+data.id;
           SeriesT.appendChild(coverelem);
-        }
+          coverelem.addEventListener("click",function(e){
+            game.cover(data);
+          });
+        } 
       }else{
         if(!info.backdrop_path){
           panda.util.log("aucune image disponible : "+jsonfile.medias.movie[key].title,"red");
@@ -115,6 +120,7 @@ const game = {
         select = this.game.found.serie[rdm-this.game.found.movie.length-1];
         select = this.game.list.series.find((serie) => serie.id == select);
       };
+      this.coverelem = select;
       let head = document.querySelector(".acceuil > .head");
       head.style.display = "";
       if(select.type == "movie"){
@@ -147,6 +153,7 @@ const game = {
     document.querySelector(".background > div").style.filter = "grayscale(1)";
     document.querySelector("#saisieUser").style.display = "";
     this.selected = info;
+    this.top();
   },
   saisie:function(saisie) {
     if(this.selected){
@@ -230,7 +237,27 @@ const game = {
       percent = 0;
     }
     return percent;
-  }
+  },
+  cover(data){
+    if(data.type == "movie"){
+      document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+data.backdrop_path})`;
+      document.querySelector(".background > div").style.filter = "grayscale(0)";
+      let head = document.querySelector(".acceuil >.head");
+      head.querySelector("h1").innerHTML = data.title;
+    }else if(data.type == "tv"){
+      document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+data.poster_path})`;
+      document.querySelector(".background > div").style.filter = "grayscale(0)";
+      let head = document.querySelector(".acceuil >.head");
+      head.querySelector("h1").innerHTML = data.name;
+    }
+    this.top();
+  },
+  top(){
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // pour un défilement fluide, vous pouvez également utiliser 'auto' pour un défilement instantané
+    });
+  },
 }
 
 await game.init();
