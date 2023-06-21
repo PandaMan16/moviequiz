@@ -10,6 +10,12 @@
     <title>movie quiz</title>
 </head>
 <body>
+    <div id="modal">
+        <div class="contents">
+            <h3></h3>
+            <p></p>
+        </div>
+    </div>
     <div id="loader">
         <div class="content"></div>
     </div>
@@ -19,17 +25,17 @@
                 <img src="./ressources/logo_moviequiz.png" alt="logo moviequiz">
             </div>
             <div class="left">
-                <p>Acceuil</p>
-                <p>Séries</p>
-                <p>Films</p>
-                <p>Tous les films et Séries</p>
+                <p id="m_home">Acceuil</p>
+                <p id="m_film">Films</p>
+                <p id="m_serie">Séries</p>
+                <p id="m_all">Tous les films et Séries</p>
             </div>
-            <div class="right">
+            <div class="right m_help">
                 <i class="fa-regular fa-circle-question"></i>
                 <p>Comment jouer</p>
             </div>
             <div class="right mobile">
-                <i class="fa-regular fa-circle-question"></i>
+                <span class="m_help"><i class="fa-regular fa-circle-question"></i></span>
                 <i class="fa-solid fa-bars"></i>
             
             </div>

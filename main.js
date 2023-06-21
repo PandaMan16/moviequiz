@@ -20,15 +20,68 @@ const game = {
   game:null,
   selected:null,
   coverelem:null,
+  initnav:function(){
+    let nav = document.querySelector("#main > nav");
+    nav.querySelector("p#m_home").addEventListener("click",function(e){
+      document.querySelector(".acceuil .content").style.display = "";
+      document.querySelector(".acceuil .detail").style.display = "none";
+      game.top();
+    });
+    nav.querySelector("p#m_serie").addEventListener("click",function(e){
+      document.querySelector(".acceuil .content").style.display = "";
+      document.querySelector(".acceuil .detail").style.display = "none";
+      game.top(document.querySelector("#SeriesN"));
+    });
+    nav.querySelector("p#m_film").addEventListener("click",function(e){
+      document.querySelector(".acceuil .content").style.display = "";
+      document.querySelector(".acceuil .detail").style.display = "none";
+      game.top(document.querySelector("#FilmsN"));
+    });
+    nav.querySelector("p#m_all").addEventListener("click",function(e){
+      document.querySelector(".acceuil .content").style.display = "";
+      document.querySelector(".acceuil .detail").style.display = "none";
+      game.top(document.querySelector("#FilmsT"));
+    });
+    nav.querySelectorAll(".m_help").forEach(elementS => {
+      elementS.addEventListener("click",function(){
+        document.querySelector(".acceuil .content").style.display = "";
+        document.querySelector(".acceuil .detail").style.display = "none";
+        game.top();
+        const modal = document.querySelector("#modal");
+        modal.querySelector(".contents h3").innerHTML = "Comment Jouer";
+        modal.querySelector(".contents p").innerHTML = "Ci-dessous, vous trouverez une liste de films et de séries.<br>Pour visualiser l'une des œuvres, il suffit de cliquer sur sa couverture.<br>L'image s'affichera alors en grand format, en noir et blanc.<br>En bas de l'image, une zone de saisie apparaîtra.<br>Saisissez le titre du film ou nom de la série<br>Vous devez cliquer sur \"Valider\" ou appuyer sur la touche \"Entrée\".<br>Si votre réponse est correcte, l'image passera en couleur et un message s'affichera au centre pour vous en informer.<br><br>En revanche, si vous vous trompez, l'image restera en noir et blanc et un message au centre vous indiquera votre erreur.";
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      });
+    });
+    document.querySelector("#modal").addEventListener("click",function(e){
+      if (e.target != document.querySelector("#modal .contents") && e.target.parentElement != document.querySelector("#modal .contents")){
+        document.querySelector("#modal").style.display = "none";
+        document.body.style.overflow = "";
+        document.querySelector("#modal .contents p").innerHTML = "";
+      }
+    });
+  },
   init:async function(){
+    this.initnav();
     document.querySelector("#sendSaisie").addEventListener("click",function(e){
       let saisie = document.querySelector("#saisie").value;
       document.querySelector("#saisie").value = "";
       game.saisie(saisie);
     });
+    document.querySelector("#saisieUser #saisie").addEventListener("keyup",function(e){
+      if(e.keyCode == 13){
+        let saisie = document.querySelector("#saisie").value;
+        document.querySelector("#saisie").value = "";
+        game.saisie(saisie);
+      }
+    });
     document.querySelector(".btn_info").addEventListener("click",function(e){
       game.info();
     });
+    document.querySelector(".btn_bande").addEventListener("click",function(e){
+      game.bande();
+    })
     const save = panda.cookie.read("moviequiz");
     const FilmN = document.querySelector("#FilmsN .swiper-wrapper");
     const SeriesN = document.querySelector("#SeriesN .swiper-wrapper");
@@ -55,10 +108,17 @@ const game = {
     SeriesT.appendChild(panda.util.newelem("div",{"className":"swiper-slide","id":"SerieEmpty"}));
 
     for (const key in jsonfile.medias.movie) {
-      const info = await this.getinfo(jsonfile.medias.movie[key].title,"movie");
+      let f_id;
+      if(jsonfile.medias.movie[key].f_s_id){
+        f_id = jsonfile.medias.movie[key].f_s_id;
+      }
+      const info = await this.getinfo(jsonfile.medias.movie[key].title,"movie",jsonfile.medias.movie[key].f_id);
       
       if(info.backdrop_path){
         let data = {"type":"movie","id":info.id,"title":info.title.split(" : ")[0],"poster_path":info.poster_path,"backdrop_path":info.backdrop_path,"overview":info.overview};
+        if(jsonfile.medias.movie[key].f_trailer){
+          data.f_trailer = jsonfile.medias.movie[key].f_trailer;
+        }
         this.game.list.movies.push(data);
         if(this.game.found.movie.findIndex((movie) => movie == info.id) == -1){
           let image = this.baseimg+info.backdrop_path;
@@ -85,9 +145,16 @@ const game = {
       }
     }
     for (const key in jsonfile.medias.serie) {
-      const info = await this.getinfo(jsonfile.medias.serie[key].title,"tv");
+      let f_id;
+      if(jsonfile.medias.serie[key].f_s_id){
+        f_id = jsonfile.medias.serie[key].f_s_id;
+      }
+      const info = await this.getinfo(jsonfile.medias.serie[key].title,"tv",f_id);
       if(info.backdrop_path){
         let data = {"type":"tv","id":info.id,"name":info.name.split(" : ")[0],"poster_path":info.poster_path,"backdrop_path":info.backdrop_path,"overview":info.overview};
+        if(jsonfile.medias.serie[key].f_trailer){
+          data.f_trailer = jsonfile.medias.serie[key].f_trailer;
+        }
         this.game.list.series.push(data);
         if(this.game.found.serie.findIndex((serie) => serie == info.id) == -1){
           let image = this.baseimg+info.backdrop_path;
@@ -135,11 +202,14 @@ const game = {
       document.querySelector(".background > div").style.filter = "grayscale(0)";
     }
   },
-  getinfo:async function(title,type){
+  getinfo:async function(title,type,f_s){
     let result = await fetch(`https://api.themoviedb.org/3/search/${type}?api_key=${this.apikey}&language=fr&page=1&region=fr&query=${encodeURIComponent(title)}`)
       .then(response => response.json())
       .then(data => {
         if (data.results && data.results.length > 0) {
+          if(f_s){
+            return data.results.find((movie) => movie.id == f_s);
+          }
           return data.results[0];
         }else{
           return false;
@@ -155,6 +225,17 @@ const game = {
     });
     return result;
   },
+  trailer:async function(id,type){
+    let result = await fetch(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${this.apikey}&language=fr-FR`)
+      .then(response => response.json())
+      .then(data => { return data; });
+    if(result.results.length == 0){
+      result = await fetch(`https://api.themoviedb.org/3/${type}/${id}/videos?api_key=${this.apikey}`)
+      .then(response => response.json())
+      .then(data => { return data; });
+    }
+      return result.results[0].key;
+  },
   select:function(info){
     if(this.interval){
       clearInterval(this.interval);
@@ -165,6 +246,7 @@ const game = {
     document.querySelector("#saisieUser").style.display = "";
     this.selected = info;
     this.top();
+    document.querySelector("#saisieUser #saisie").focus();
   },
   saisie:function(saisie) {
     if(this.selected){
@@ -207,7 +289,7 @@ const game = {
         }
         document.querySelector(".background > div").style.backgroundImage = `url(${this.baseimg2+this.selected.backdrop_path})`;
         document.querySelector(".background > div").style.filter = "grayscale(0)";
-        const selecte = this.selected;
+        const selecte = this.selected;  
         this.interval = setInterval(() => {
           document.querySelector("#saisieUser").style.display = "none";
           game.cover(selecte);
@@ -301,18 +383,47 @@ const game = {
       document.querySelector(".acceuil .content").style.display = "none";
     }
   },
-  top:function(){
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // pour un défilement fluide, vous pouvez également utiliser 'auto' pour un défilement instantané
-    });
+  bande:async function(){
+    if(this.coverelem){
+        game.top();
+        let modal = document.querySelector("#modal");
+        switch (this.coverelem.type) {
+          case "movie":
+            modal.querySelector(".contents h3").innerHTML = this.coverelem.title;
+            break;
+          case "tv":
+            modal.querySelector(".contents h3").innerHTML = this.coverelem.name;
+            break;
+        }
+        let videocode = "";
+        if(this.coverelem.f_trailer){
+          videocode = this.coverelem.f_trailer;
+        }else{
+          videocode = await game.trailer(this.coverelem.id,this.coverelem.type);
+        }
+        console.log(videocode);
+        modal.querySelector(".contents p").innerHTML = "<iframe src=\"https://www.youtube.com/embed/"+videocode+"?start=1&autoplay=1\" width=\"560\" height=\"315\" title=\"fdfdf\" frameborder=\"0\" allowfullscreen></iframe>";
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+    }
+  },
+  top:function(div){
+    if(div){
+      // Faire défiler vers la position de la div avec une animation fluide
+      div.scrollIntoView({block:"start", behavior: "smooth"});
+    }else{
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // pour un défilement fluide, vous pouvez également utiliser 'auto' pour un défilement instantané
+      });
+    }
   },
 }
 
 await game.init();
-panda.timeaction.add(loader,{"list":[{"action":"style","value":"opacity:&1","init":1,"add":-1}],"start":1,"end":2});
-panda.timeaction.add(loader,{"list":[{"action":"style","value":"display:none","init":0,"add":0}],"start":2,"end":3});
-panda.timeaction.add(document.querySelector("#main"),{"list":[{"action":"style","value":"display:","init":0,"add":0}],"start":2,"end":3});
+panda.timeaction.add(loader,{"list":[{"action":"style","value":"opacity:&1","init":1,"add":-1}],"start":2,"end":3});
+panda.timeaction.add(loader,{"list":[{"action":"style","value":"display:none;&1","init":0,"add":0}],"start":4,"end":5});
+panda.timeaction.add(document.querySelector("#main"),{"list":[{"action":"style","value":"","init":0,"add":0}],"start":4,"end":5});
 // panda.timeaction.add(document.querySelector("#main .acceuil .content"),{"list":[{"action":"style","value":"display:none","init":0,"add":0}],"start":3,"end":4});
 // panda.timeaction.add(document.querySelector("#main .acceuil .detail"),{"list":[{"action":"style","value":"","init":0,"add":0}],"start":4,"end":5});
 const swiperContainers = document.querySelectorAll('.swiper-global-container');
