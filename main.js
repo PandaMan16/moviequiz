@@ -22,28 +22,30 @@ const game = {
   coverelem:null,
   initnav:function(){
     let nav = document.querySelector("#main > nav");
-    nav.querySelector("p#m_home").addEventListener("click",function(e){
-      document.querySelector(".acceuil .content").style.display = "";
-      document.querySelector(".acceuil .detail").style.display = "none";
-      game.top();
+    nav.querySelectorAll(".m_home").forEach(elementS => {
+      elementS.addEventListener("click",function(e){
+        document.querySelector(".acceuil .content").style.display = "";
+        document.querySelector(".acceuil .detail").style.display = "none";
+        game.top();
+      });
     });
-    nav.querySelector("p#m_serie").addEventListener("click",function(e){
+    nav.querySelector("p.m_serie").addEventListener("click",function(e){
       document.querySelector(".acceuil .content").style.display = "";
       document.querySelector(".acceuil .detail").style.display = "none";
       game.top(document.querySelector("#SeriesN"));
     });
-    nav.querySelector("p#m_film").addEventListener("click",function(e){
+    nav.querySelector("p.m_film").addEventListener("click",function(e){
       document.querySelector(".acceuil .content").style.display = "";
       document.querySelector(".acceuil .detail").style.display = "none";
       game.top(document.querySelector("#FilmsN"));
     });
-    nav.querySelector("p#m_all").addEventListener("click",function(e){
+    nav.querySelector("p.m_all").addEventListener("click",function(e){
       document.querySelector(".acceuil .content").style.display = "";
       document.querySelector(".acceuil .detail").style.display = "none";
       game.top(document.querySelector("#FilmsT"));
     });
-    nav.querySelectorAll(".m_help").forEach(elementS => {
-      elementS.addEventListener("click",function(){
+    nav.querySelectorAll(".m_help").forEach(elementU => {
+      elementU.addEventListener("click",function(){
         document.querySelector(".acceuil .content").style.display = "";
         document.querySelector(".acceuil .detail").style.display = "none";
         game.top();
@@ -53,6 +55,14 @@ const game = {
         modal.style.display = "flex";
         document.body.style.overflow = "hidden";
       });
+    });
+    nav.querySelector(".m_menu").addEventListener("click",function(e){
+      const elementT = nav.querySelector(".menu");
+      if (elementT.style.display === 'none') {
+        elementT.style.display = 'block';
+      } else {
+        elementT.style.display = 'none';
+      }
     });
     document.querySelector("#modal").addEventListener("click",function(e){
       if (e.target != document.querySelector("#modal .contents") && e.target.parentElement != document.querySelector("#modal .contents")){
@@ -401,8 +411,7 @@ const game = {
         }else{
           videocode = await game.trailer(this.coverelem.id,this.coverelem.type);
         }
-        console.log(videocode);
-        modal.querySelector(".contents p").innerHTML = "<iframe src=\"https://www.youtube.com/embed/"+videocode+"?start=1&autoplay=1\" width=\"560\" height=\"315\" title=\"fdfdf\" frameborder=\"0\" allowfullscreen></iframe>";
+        modal.querySelector(".contents p").innerHTML = "<iframe src=\"https://www.youtube.com/embed/"+videocode+"?start=1&autoplay=1\" width=\"280\" height=\"200\" title=\"fdfdf\" frameborder=\"0\" allowfullscreen></iframe>";
         modal.style.display = "flex";
         document.body.style.overflow = "hidden";
     }
