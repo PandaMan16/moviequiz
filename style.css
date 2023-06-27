@@ -350,6 +350,14 @@ body {
 .swiper-global-container .swiper-button-next {
   right: -50px !important;
 }
+@media screen and (max-width: 480px) {
+  .swiper-global-container .swiper-button-prev {
+    left: -10px !important;
+  }
+  .swiper-global-container .swiper-button-next {
+    right: -10px !important;
+  }
+}
 
 .detail .sinopsis {
   margin: 0 5vw;

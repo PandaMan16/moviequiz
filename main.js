@@ -6,12 +6,7 @@ let logo = panda.util.newelem("img",{"src":"./ressources/logo_moviequiz.png","al
 let bar = panda.util.newelem("div",{"id":"loaderbar"});
 loader.querySelector(".content").appendChild(logo);
 loader.querySelector(".content").appendChild(bar);
-// panda.timeaction.add(logo,{"list":[{"action":"style","value":"transform:scale(&1)","init":4,"add":-1}],"start":0,"end":3});
-// panda.timeaction.add(bar,{"list":[{"action":"style","value":"width:&1%","init":0,"add":20}],"start":3,"end":7});
-// panda.timeaction.add(bar,{"list":[{"action":"style","value":"width:100%;position:relative;top:&1%;left:&1vw","init":0,"add":-7}],"start":7,"end":9});
-// panda.timeaction.add(bar,{"list":[{"action":"style","value":"width:100%;position:relative;top:&1%;left:&1vw","init":-14,"add":7}],"start":10,"end":12});
-// panda.timeaction.add(loader,{"list":[{"action":"style","value":"opacity:&1","init":1,"add":-1}],"start":10,"end":11});
-panda.timeaction.add(document.querySelector("#main"),{"list":[{"action":"style","value":"display:none","init":0,"add":0}],"start":0,"end":1});
+panda.timeaction.add(logo,{"list":[{"action":"style","value":"transform:scale(&1)","init":4,"add":-1}],"start":0,"end":3});
 
 const game = {
   baseimg:"https://image.tmdb.org/t/p/w300_and_h450_bestv2",
@@ -267,7 +262,7 @@ const game = {
         percent = this.matchPourcentage(saisie,this.selected.name);
       }
       const reponse = document.querySelector("#resultSaisie");
-      if(percent >= 75){
+      if(percent >= 85){
         reponse.style.display = "";
         reponse.innerHTML = `<p>BONNE RÉPONSE</p>`;
 
@@ -430,9 +425,13 @@ const game = {
 }
 
 await game.init();
-panda.timeaction.add(loader,{"list":[{"action":"style","value":"opacity:&1","init":1,"add":-1}],"start":2,"end":3});
-panda.timeaction.add(loader,{"list":[{"action":"style","value":"display:none;&1","init":0,"add":0}],"start":4,"end":5});
-panda.timeaction.add(document.querySelector("#main"),{"list":[{"action":"style","value":"","init":0,"add":0}],"start":4,"end":5});
+// panda.timeaction.add(loader,{"list":[{"action":"style","value":"opacity:&1","init":1,"add":-1}],"start":2,"end":3});
+// panda.timeaction.add(loader,{"list":[{"action":"style","value":"display:none;&1","init":0,"add":0}],"start":4,"end":5});
+panda.timeaction.add(bar,{"list":[{"action":"style","value":"width:&1%","init":0,"add":20}],"start":3,"end":7});
+panda.timeaction.add(loader,{"list":[{"action":"style","value":"opacity:&1","init":1,"add":-1}],"start":7,"end":8});
+panda.timeaction.add(loader,{"list":[{"action":"style","value":"display:none;&1","init":0,"add":0}],"start":8,"end":9});
+panda.timeaction.add(document.querySelector("#main"),{"list":[{"action":"style","value":"&1","init":0,"add":0}],"start":8,"end":9});
+
 // panda.timeaction.add(document.querySelector("#main .acceuil .content"),{"list":[{"action":"style","value":"display:none","init":0,"add":0}],"start":3,"end":4});
 // panda.timeaction.add(document.querySelector("#main .acceuil .detail"),{"list":[{"action":"style","value":"","init":0,"add":0}],"start":4,"end":5});
 const swiperContainers = document.querySelectorAll('.swiper-global-container');
